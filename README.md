@@ -7,17 +7,17 @@
 ```swift
 struct ContinuousRange: Equatable {
 
-    public let min: Double
-    public let max: Double
+    let min: Double
+    let max: Double
 
-    public init?(min: Double, max: Double)
+    init?(min: Double, max: Double)
     
-    public func scaleValue(value: Double, toRange: ContinuousRange) -> Double
-    public func scaleValue(value: Double, fromRange: ContinuousRange) -> Double
+    func scaleValue(value: Double, toRange: ContinuousRange) -> Double
+    func scaleValue(value: Double, fromRange: ContinuousRange) -> Double
     
 }
 
-public func ==(continuousRange: ContinuousRange, otherContinuousRange: ContinuousRange) -> Bool
+func ==(continuousRange: ContinuousRange, otherContinuousRange: ContinuousRange) -> Bool
 ```
 
 # Tests
