@@ -1,8 +1,8 @@
-# ContinuousRange
+# Description
 
 `ContinuousRange` allows you to quickly scale numbers in Swift.
 
-## Interface
+# Interface
 
 ```swift
 struct ContinuousRange: Equatable {
@@ -14,12 +14,13 @@ struct ContinuousRange: Equatable {
     
     public func scaleValue(value: Double, toRange: ContinuousRange) -> Double
     public func scaleValue(value: Double, fromRange: ContinuousRange) -> Double
+    
 }
 
 public func ==(continuousRange: ContinuousRange, otherContinuousRange: ContinuousRange) -> Bool
 ```
 
-## Tests
+# Tests
 
 ```swift
 class ContinuousRangeTests: XCTestCase {
