@@ -10,7 +10,7 @@ struct ContinuousRange: Equatable {
     public let min: Double
     public let max: Double
 
-    public init?(min preferredMin: Double, max preferredMax: Double)
+    public init?(min: Double, max: Double)
     
     public func scaleValue(value: Double, toRange: ContinuousRange) -> Double
     public func scaleValue(value: Double, fromRange: ContinuousRange) -> Double
