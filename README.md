@@ -4,7 +4,7 @@
 
 # Interface
 
-```swift
+```
 struct ContinuousRange: Equatable {
 
     let min: Double
@@ -22,7 +22,7 @@ func ==(continuousRange: ContinuousRange, otherContinuousRange: ContinuousRange)
 
 # Tests
 
-```swift
+```
 class ContinuousRangeTests: XCTestCase {
 
     func testInit()
