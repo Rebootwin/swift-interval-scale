@@ -22,26 +22,15 @@
 // SOFTWARE.
 //
 
-struct ContinuousRange: Equatable {
+struct Scale: Equatable {
     
     let min: Double
     let max: Double
     
-    init?(min preferredMin: Double, max preferredMax: Double) {
-        
-        guard preferredMin != preferredMax else {
-            return nil
-        }
-        
-        min = preferredMin
-        max = preferredMax
-        
-    }
-    
-    func scaleValue(value: Double, toRange: ContinuousRange) -> Double {
+    func convert(value: Double, toScale: Scale) -> Double {
         
         func interpolate(value: Double) -> Double {
-            return toRange.min * (1 - value) + toRange.max * value
+            return toScale.min * (1 - value) + toScale.max * value
         }
         
         func uninterpolate(value: Double) -> Double {
@@ -52,18 +41,16 @@ struct ContinuousRange: Equatable {
         
     }
     
-    func scaleValue(value: Double, fromRange: ContinuousRange) -> Double {
-        
-        return fromRange.scaleValue(value, toRange: self)
-        
+    func convert(value: Double, fromScale: Scale) -> Double {
+        return fromScale.convert(value, toScale: self)
     }
     
 }
 
-func ==(continuousRange: ContinuousRange, otherContinuousRange: ContinuousRange) -> Bool {
+func ==(scale: Scale, otherScale: Scale) -> Bool {
     
-    let minEquals = continuousRange.min == otherContinuousRange.min
-    let maxEquals = continuousRange.max == otherContinuousRange.max
+    let minEquals = scale.min == otherScale.min
+    let maxEquals = scale.max == otherScale.max
     
     return minEquals && maxEquals
     

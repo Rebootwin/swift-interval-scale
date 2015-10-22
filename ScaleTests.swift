@@ -24,32 +24,18 @@
 
 import XCTest
 
-class ContinuousRangeTests: XCTestCase {
+class ScaleTests: XCTestCase {
     
     func testInit() {
         
         // Arrange
         
-        guard let continuousRange = ContinuousRange(min: 0, max: 1) else {
-            preconditionFailure()
-        }
+        let scale = Scale(min: 0, max: 1)
         
         // Assert
         
-        XCTAssertEqual(0, continuousRange.min)
-        XCTAssertEqual(1, continuousRange.max)
-        
-    }
-    
-    func testInitNil() {
-        
-        // Arrange
-        
-        let continuousRange = ContinuousRange(min: 100, max: 100)
-        
-        // Assert
-        
-        XCTAssert(continuousRange == nil)
+        XCTAssertEqual(0, scale.min)
+        XCTAssertEqual(1, scale.max)
         
     }
     
@@ -57,15 +43,12 @@ class ContinuousRangeTests: XCTestCase {
         
         // Arrange
         
-        guard
-            let continuousRange1 = ContinuousRange(min: 0, max: 1),
-            let continuousRange2 = ContinuousRange(min: 0, max: 1) else {
-                preconditionFailure()
-        }
+        let scale1 = Scale(min: 0, max: 1)
+        let scale2 = Scale(min: 0, max: 1)
         
         // Assert
         
-        XCTAssert(continuousRange1 == continuousRange2)
+        XCTAssert(scale1 == scale2)
         
     }
     
@@ -73,32 +56,26 @@ class ContinuousRangeTests: XCTestCase {
         
         // Arrange
         
-        guard
-            let continuousRange1 = ContinuousRange(min: 1, max: 0),
-            let continuousRange2 = ContinuousRange(min: 0, max: 1) else {
-                preconditionFailure()
-        }
+        let scale1 = Scale(min: 1, max: 0)
+        let scale2 = Scale(min: 0, max: 1)
         
         // Assert
         
-        XCTAssert(continuousRange1 != continuousRange2)
+        XCTAssert(scale1 != scale2)
         
     }
     
-    func testScaleToRange() {
+    func testConvertToScale() {
         
         // Arrange
         
-        guard
-            let fromRange = ContinuousRange(min: -1, max: +1),
-            let toRange = ContinuousRange(min: -100, max: +100) else {
-                preconditionFailure()
-        }
+        let fromScale = Scale(min: -1, max: +1)
+        let toScale = Scale(min: -100, max: +100)
         
         // Act
         
-        let scaledMin = fromRange.scaleValue(-1, toRange: toRange)
-        let scaledMax = fromRange.scaleValue(+1, toRange: toRange)
+        let scaledMin = fromScale.convert(-1, toScale: toScale)
+        let scaledMax = fromScale.convert(+1, toScale: toScale)
         
         // Assert
         
@@ -109,20 +86,17 @@ class ContinuousRangeTests: XCTestCase {
     
     
     
-    func testScaleFromRange() {
+    func testConvertFromScale() {
         
         // Arrange
         
-        guard
-            let toRange = ContinuousRange(min: -1, max: +1),
-            let fromRange = ContinuousRange(min: -100, max: +100) else {
-                preconditionFailure()
-        }
+        let toScale = Scale(min: -1, max: +1)
+        let fromScale = Scale(min: -100, max: +100)
         
         // Act
         
-        let scaledMin = toRange.scaleValue(-100, fromRange: fromRange)
-        let scaledMax = toRange.scaleValue(+100, fromRange: fromRange)
+        let scaledMin = toScale.convert(-100, fromScale: fromScale)
+        let scaledMax = toScale.convert(+100, fromScale: fromScale)
         
         // Assert
         

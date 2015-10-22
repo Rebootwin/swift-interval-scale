@@ -1,38 +1,33 @@
 # Description
 
-`ContinuousRange` allows you to quickly scale numbers in Swift.
+`Scale` allows you to quickly scale numbers in Swift.
 
 # Interface
 
 ```
-struct ContinuousRange: Equatable {
+struct Scale: Equatable {
 
     let min: Double
     let max: Double
-
-    init?(min: Double, max: Double)
     
-    func scaleValue(value: Double, toRange: ContinuousRange) -> Double
-    func scaleValue(value: Double, fromRange: ContinuousRange) -> Double
+    func convert(value: Double, toScale: Scale) -> Double
+    func convert(value: Double, fromScale: Scale) -> Double
     
 }
-
-func ==(continuousRange: ContinuousRange, otherContinuousRange: ContinuousRange) -> Bool
 ```
 
 # Tests
 
 ```
-class ContinuousRangeTests: XCTestCase {
+class ScaleTests: XCTestCase {
 
     func testInit()
-    func testInitNil()
-    
+
     func testEquatableTrue()
     func testEquatableFalse()
-    
-    func testScaleToRange()
-    func testScaleFromRange()
+
+    func testConvertToScale()
+    func testConvertFromScale()
     
 }
 ```
