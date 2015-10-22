@@ -26,56 +26,17 @@ import XCTest
 
 class ScaleTests: XCTestCase {
     
-    func testInit() {
-        
-        // Arrange
-        
-        let scale = Scale(min: 0, max: 1)
-        
-        // Assert
-        
-        XCTAssertEqual(0, scale.min)
-        XCTAssertEqual(1, scale.max)
-        
-    }
-    
-    func testEquatableTrue() {
-        
-        // Arrange
-        
-        let scale1 = Scale(min: 0, max: 1)
-        let scale2 = Scale(min: 0, max: 1)
-        
-        // Assert
-        
-        XCTAssert(scale1 == scale2)
-        
-    }
-    
-    func testEquatableFalse() {
-        
-        // Arrange
-        
-        let scale1 = Scale(min: 1, max: 0)
-        let scale2 = Scale(min: 0, max: 1)
-        
-        // Assert
-        
-        XCTAssert(scale1 != scale2)
-        
-    }
-    
     func testConvertToScale() {
         
         // Arrange
         
-        let fromScale = Scale(min: -1, max: +1)
-        let toScale = Scale(min: -100, max: +100)
+        let fromInterval = -1.0 ... +1.0
+        let toInterval = -100.0 ... +100.0
         
         // Act
         
-        let scaledMin = fromScale.convert(-1, toScale: toScale)
-        let scaledMax = fromScale.convert(+1, toScale: toScale)
+        let scaledMin = fromInterval.scale(-1, toInterval: toInterval)
+        let scaledMax = fromInterval.scale(+1, toInterval: toInterval)
         
         // Assert
         
@@ -84,19 +45,17 @@ class ScaleTests: XCTestCase {
         
     }
     
-    
-    
     func testConvertFromScale() {
         
         // Arrange
         
-        let toScale = Scale(min: -1, max: +1)
-        let fromScale = Scale(min: -100, max: +100)
+        let toInterval = -1.0 ... +1.0
+        let fromInterval = -100.0 ... +100.0
         
         // Act
         
-        let scaledMin = toScale.convert(-100, fromScale: fromScale)
-        let scaledMax = toScale.convert(+100, fromScale: fromScale)
+        let scaledMin = toInterval.scale(-100, fromInterval: fromInterval)
+        let scaledMax = toInterval.scale(+100, fromInterval: fromInterval)
         
         // Assert
         

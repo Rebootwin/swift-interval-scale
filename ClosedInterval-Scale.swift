@@ -22,36 +22,39 @@
 // SOFTWARE.
 //
 
-struct Scale: Equatable {
+import QuartzCore
+
+extension ClosedInterval where Bound: Scaleable {
     
-    let min: Double
-    let max: Double
-    
-    func convert(value: Double, toScale: Scale) -> Double {
+    func scale(value: Bound, toInterval: ClosedInterval) -> Bound {
         
-        func interpolate(value: Double) -> Double {
-            return toScale.min * (1 - value) + toScale.max * value
+        func interpolate(value: Bound) -> Bound {
+            return toInterval.start * (1 - value) + toInterval.end * value
         }
         
-        func uninterpolate(value: Double) -> Double {
-            return (value - min) / (max - min)
+        func uninterpolate(value: Bound) -> Bound {
+            return (value - start) / (end - start)
         }
         
         return interpolate(uninterpolate(value))
         
     }
     
-    func convert(value: Double, fromScale: Scale) -> Double {
-        return fromScale.convert(value, toScale: self)
+    func scale(value: Bound, fromInterval: ClosedInterval<Bound>) -> Bound {
+        return fromInterval.scale(value, toInterval: self)
     }
     
 }
 
-func ==(scale: Scale, otherScale: Scale) -> Bool {
+protocol Scaleable: IntegerLiteralConvertible {
     
-    let minEquals = scale.min == otherScale.min
-    let maxEquals = scale.max == otherScale.max
-    
-    return minEquals && maxEquals
+    func +(lhs: Self, rhs: Self) -> Self
+    func -(lhs: Self, rhs: Self) -> Self
+    func *(lhs: Self, rhs: Self) -> Self
+    func /(lhs: Self, rhs: Self) -> Self
     
 }
+
+extension Double: Scaleable {}
+extension Float: Scaleable {}
+extension CGFloat: Scaleable {}

@@ -1,33 +1,11 @@
 # Description
 
-`Scale` allows you to quickly scale numbers in Swift.
+Usage:
 
-# Interface
+```Swift
+let fromInterval = -1.0 ... +1.0
+let toInterval = -100.0 ... +100.0
 
-```
-struct Scale: Equatable {
-
-    let min: Double
-    let max: Double
-    
-    func convert(value: Double, toScale: Scale) -> Double
-    func convert(value: Double, fromScale: Scale) -> Double
-    
-}
-```
-
-# Tests
-
-```
-class ScaleTests: XCTestCase {
-
-    func testInit()
-
-    func testEquatableTrue()
-    func testEquatableFalse()
-
-    func testConvertToScale()
-    func testConvertFromScale()
-    
-}
+fromInterval.scale(-1, toInterval: toInterval) // -100
+fromInterval.scale(+1, toInterval: toInterval) // +100
 ```
